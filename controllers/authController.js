@@ -51,4 +51,19 @@ const forgetPassword = async (req, res) => {
   res.json({ message: 'Password updated successfully' });
 };
 
-module.exports = { register, login, forgetPassword };
+///refresh token
+const refreshToken = async (req, res) => {
+  const { token } = req.body;
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const newToken = generateToken(decoded.id);
+
+    res.json({ token: newToken });
+  } catch {
+    res.status(401).json({ message: 'Invalid refresh token' });
+  }
+};
+
+module.exports = { register, login, forgetPassword, refreshToken };

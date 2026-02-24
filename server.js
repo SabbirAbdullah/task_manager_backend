@@ -3,6 +3,8 @@ const cors = require('cors');
 const { sequelize } = require('./config/db'); // connectDB removed, handled here
 const authRoutes = require('./routes/authRoutes');
 const todoRoutes = require('./routes/todoRoutes');
+const userRoutes = require('./routes/userRoutes');
+
 require('dotenv').config();
 
 const app = express();
@@ -14,6 +16,7 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/todos', todoRoutes);
+app.use('/api/users', userRoutes);
 
 // Root route (public)
 app.get('/', (req, res) => {
